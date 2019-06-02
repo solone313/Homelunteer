@@ -1,0 +1,120 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Oxygen:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'home/css/animate.css'%}">
+    <link rel="stylesheet" href="{%static 'home/css/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/css/jquery.fancybox.min.css'%}">
+
+    <link rel="stylesheet" href="{%static 'home/fonts/ionicons/css/ionicons.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/fonts/fontawesome/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/fonts/flaticon/font/flaticon.css'%}">
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.4/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js"></script>
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{%static 'home/css/style.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>#panorama {
+        width: 600px;
+        height: 400px;
+    }</style>
+</head>
+<body>
+        <header role="banner">
+                <nav class="navbar navbar-expand-lg  bg-dark">
+                  <div class="container-fluid">
+                    <a class="navbar-brand " href="{% url 'home'%}">Volunteer</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+          
+                    <div class="collapse navbar-collapse" id="navbarsExample05">
+                      <ul class="navbar-nav pl-md-5 mr-auto">
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'home'%}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'about'%}">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link" href="{% url 'volunteer'%}">Volunteer</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="{% url 'gallery'%}">Gallery</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'logout'%}">Logout</a>
+                          <form id="logout" method="POST" action="">
+                              {% csrf_token %} <input type="hidden" />
+                          </form>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'coaches'%}">Mypage</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'login'%}">Login</a>
+                        </li>
+                        {% endif %}
+                      </ul>
+          
+                      <div class="navbar-nav ml-auto">
+                        <form method="post" class="search-form">
+                          <span class="icon ion ion-search"></span>
+                          <input type="text" class="form-control" placeholder="Search...">
+                        </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </nav>
+              </header>
+    <!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">AngelHack
+    </h1>
+  
+    <!-- Portfolio Item Row -->
+    <div class="row">
+  
+      <div class="col-md-8">
+            <div id="panorama"></div>
+            <script>
+            pannellum.viewer('panorama', {
+                "type": "equirectangular",
+                "panorama": "/static/sample.jpg"
+            });
+            </script>
+      </div>
+  
+      <div class="col-md-4">
+        <h3 class="my-3">Angel-Hackathon</h3>
+        <p>이 장소는 마루 180으로 앤젤핵해커톤이 진행되는 곳입니다. 저희는 이처럼 공간의 VR을 통해 미리 지역에 대한 사전답사를 대체할 수 있습니다.</p>
+        <h3 class="my-3">봉사 세부 사항</h3>
+        <ul>
+          <li>봉사 모집중</li>
+          <li>봉사 기간 06.02</li>
+          <li>봉사 위치 역삼로 180 마루 180</li>
+          <li>봉사 담당자 010-xxxx-xxxx</li>
+        </ul>
+      </div>
+      <br><br>
+      <input type="submit" value="지원하기" >
+    </div>
+  
+  </div>
+  <!-- /.container -->
+</body>
+</html>

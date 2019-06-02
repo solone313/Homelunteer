@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Home-lunteer</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Oxygen:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'home/css/animate.css'%}">
+    <link rel="stylesheet" href="{%static 'home/css/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/css/jquery.fancybox.min.css'%}">
+
+    <link rel="stylesheet" href="{%static 'home/fonts/ionicons/css/ionicons.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/fonts/fontawesome/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{%static 'home/fonts/flaticon/font/flaticon.css'%}">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{%static 'home/css/style.css'%}">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{%static 'table/images/icons/favicon.ico'%}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/vendor/animate/animate.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/vendor/perfect-scrollbar/perfect-scrollbar.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'table/css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{%static 'table/css/main.css'%}">
+<!--===============================================================================================-->
+</head>
+<body>
+	<header role="banner">
+        <nav class="navbar navbar-expand-lg  bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand " href="{% url 'home'%}">Volunteer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+  
+            <div class="collapse navbar-collapse" id="navbarsExample05">
+              <ul class="navbar-nav pl-md-5 mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home'%}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'about'%}">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active" href="{% url 'volunteer'%}">Volunteer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'gallery'%}">Gallery</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout'%}">Logout</a>
+                  <form id="logout" method="POST" action="">
+                      {% csrf_token %} <input type="hidden" />
+                  </form>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'coaches'%}">Mypage</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login'%}">Login</a>
+                </li>
+                {% endif %}
+              </ul>
+  
+              <div class="navbar-nav ml-auto">
+                <form method="post" class="search-form">
+                  <span class="icon ion ion-search"></span>
+                  <input type="text" class="form-control" placeholder="Search...">
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </nav>
+      </header>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">장소</th>
+									<th class="cell100 column2">진행상황</th>
+									<th class="cell100 column3">모집기간</th>
+									<th class="cell100 column4">봉사기간</th>
+									<th class="cell100 column5">신청</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+        
+                    
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+                {% for list in lists.all %}
+                <tr class="row100 body">
+                {% if list.notice == False %}
+									<td class="cell100 column1">{{ list.address }}</td>
+									<td class="cell100 column2">{{ list.status }}</td>
+									<td class="cell100 column3">{{ list.vol_st }}~{{ list.vol_ed }}</td>
+									<td class="cell100 column4">{{ list.sup_st }}~{{ list.sup_ed }}</td>
+									<td class="cell100 column5"><a href="#">신청하기</a></td>
+                {%endif%}
+                </tr>
+								<tr class="row100 body">
+                {%if list.notice == True %}
+                	<td class="cell100 column1">{{ list.address }}</td>
+									<td class="cell100 column2">{{ list.status }}</td>
+									<td class="cell100 column3">{{ list.vol_st }}~{{ list.vol_ed }}</td>
+									<td class="cell100 column4">{{ list.sup_st }}~{{ list.sup_ed }}</td>
+									<td class="cell100 column5"><a href="#">신청하기</a></td>
+                {%endif%}
+								</tr>
+                {% endfor %}
+                <tr class="row100 body">
+                
+									<td class="cell100 column1">Angelhack</td>
+									<td class="cell100 column2">True</td>
+									<td class="cell100 column3">2019.06.02</td>
+									<td class="cell100 column4">2019.06.02</td>
+									<td class="cell100 column5"><a href= "{% url 'angelhack' %}">신청하기</a></td>
+                
+                </tr>
+							</tbody>
+						</table>
+                    </div>
+          
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->	
+	<script src="{%static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{%static 'vendor/bootstrap/js/popper.js'%}"></script>
+	<script src="{%static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{%static 'vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{%static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js'%}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="{%static 'js/main.js'%}"></script>
+
+</body>
+</html>
+
+
+
+<!--{% for x in lists.all %}
+    <div class="container">
+            <h1>{{ x.title}}</h1>
+            {{x.pub_date}}<br>
+            {{x.people}}<br>
+            {{x.status}}<br>
+            {{x.notice}}<br>
+            {{x.image}}<br>
+        <br><br>
+        <form action="{% url 'supply'%>">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+{% endfor %}
+-->
